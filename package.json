@@ -1,0 +1,32 @@
+{
+  "name": "cygnus",
+  "version": "0.0.1",
+  "description": "A product release manage system.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --hot --open",
+    "build":"webpack --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ammeyjohn/Cygnus.git"
+  },
+  "keywords": [],
+  "author": "Patrick<ammeyjohn@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ammeyjohn/Cygnus/issues"
+  },
+  "homepage": "https://github.com/ammeyjohn/Cygnus#readme",
+  "dependencies": {
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.2"
+  }
+}
