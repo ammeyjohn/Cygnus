@@ -53,7 +53,16 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'index.tpl.html'
+            template: 'index.html'
         })
-    ]
+    ],
+    resolve: {
+        alias: {
+            'vue': 'vue/dist/vue.common'
+        }
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist')
+    }
 }

@@ -1,11 +1,18 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import App from './app.vue';
-import routerConfig from './router';
-Vue.use(VueRouter);
-var router = new VueRouter(routerConfig)
-new Vue({
+
+var vm = new Vue({
     el: '#app',
-    router: router,
-    render: h => h(App)
-});
+    data: {
+        a: 1,
+        message: 'Hello Vue!',
+        todos: [
+            { text: '学习 JavaScript' },
+            { text: '学习 Vue' },
+            { text: '整个牛项目' }
+        ]
+    },
+    created: function () {
+        // `this` 指向 vm 实例
+        console.log('a is: ' + this.a)
+    }
+})
