@@ -1,18 +1,27 @@
 "use strict";
 
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 // Plugins
-var ExtractTextPlugin = require("extract-text-webpack-plugin")
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        main: './src/main.js',
+        vendor: [
+            'vue',
+            'iview'
+        ]
+    },
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
-        filename: 'build.js'
+        filename: 'js/[name].[hash:4].js',
+        chunkFilename: 'js/[name].[chunkhash:4].chunk.js'
     },
     module: {
         rules: [{
@@ -25,7 +34,7 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                use: ["vue-style-loader", "css-loader"]
+                use: ["css-loader"]
             })
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -48,21 +57,37 @@ module.exports = {
         }]
     },
     plugins: [
+        // new BundleAnalyzerPlugin(),
+        // new webpack.DefinePlugin({
+        //     'process.env.NODE_ENV': 'development'
+        // }),
         new ExtractTextPlugin({
-            filename: "css/style.css"
+            filename: 'css/style.css'
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['vendor', 'runtime'],
+            minChunks: Infinity
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            minChunks: 3,
+            children: true,
+            async: true
         })
     ],
     resolve: {
         alias: {
             'vue': 'vue/dist/vue.common'
-        }
+        },
+        extensions: ['.js', '.jsx']
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist')
+        contentBase: path.resolve(__dirname, '/dist/'),
+        inline: true,
+        historyApiFallback: true
     }
 }

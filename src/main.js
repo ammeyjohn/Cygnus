@@ -1,18 +1,10 @@
 import Vue from 'vue';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 
-var vm = new Vue({
+Vue.use(iView);
+
+new Vue({
     el: '#app',
-    data: {
-        a: 1,
-        message: 'Hello Vue!',
-        todos: [
-            { text: '学习 JavaScript' },
-            { text: '学习 Vue' },
-            { text: '整个牛项目' }
-        ]
-    },
-    created: function () {
-        // `this` 指向 vm 实例
-        console.log('a is: ' + this.a)
-    }
-})
+    render: h => h(App)
+});
