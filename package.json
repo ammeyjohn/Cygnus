@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ammeyjohn/Cygnus#readme",
   "dependencies": {
+    "element-ui": "^1.4.8",
     "iview": "^2.5.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

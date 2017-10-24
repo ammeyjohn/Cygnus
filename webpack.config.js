@@ -19,7 +19,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/',
+        publicPath: '/',
         filename: 'js/[name].[hash:4].js',
         chunkFilename: 'js/[name].[chunkhash:4].chunk.js'
     },
@@ -86,7 +86,7 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.resolve(__dirname, '/dist/'),
+        contentBase: path.resolve(__dirname, 'dist'),
         inline: true,
         historyApiFallback: true
     }
