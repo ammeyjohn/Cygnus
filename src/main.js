@@ -10,12 +10,15 @@ Vue.use(ElementUI);
 
 const router = new VueRouter({
     routes: [{
+        path: '/',
+        name: 'root',
+        redirect: '/index'
+    }, {
         path: '/index',
         name: 'index',
-        meta: {
-            title: '首页'
+        component: resolve => {
+            require(['./index/index.vue'], resolve);
         },
-        component: resolve => { require(['./index/sidebarMenu.vue'], resolve); }
     }]
 });
 
