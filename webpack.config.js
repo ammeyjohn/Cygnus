@@ -14,6 +14,7 @@ module.exports = {
         main: './src/main.js',
         vendor: [
             'vue',
+            'VueRouter',
             'iview'
         ]
     },
