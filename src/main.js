@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import Vuex from 'vuex';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 
 import App from './app.vue';
 
 Vue.use(VueRouter);
-Vue.use(ElementUI);
+Vue.use(Vuex);
+Vue.use(iView);
 
 const router = new VueRouter({
     routes: [{
@@ -22,8 +24,19 @@ const router = new VueRouter({
     }]
 });
 
+const store = new Vuex.Store({
+    state: {
+        currentPath: [{
+            title: '首页',
+            path: '',
+            name: 'home_index'
+        }]
+    }
+});
+
 new Vue({
     el: '#app',
     router: router,
+    store: store,
     render: h => h(App)
 });

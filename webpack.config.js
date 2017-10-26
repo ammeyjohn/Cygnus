@@ -15,7 +15,8 @@ module.exports = {
         vendor: [
             'vue',
             'vue-router',
-            'element-ui'
+            'vuex',
+            'iview'
         ]
     },
     output: {
@@ -27,7 +28,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.vue$/,
-            use: 'vue-loader',
+            loader: 'vue-loader',
             options: {
                 loaders: {
                     scss: ExtractTextPlugin.extract({
@@ -42,7 +43,7 @@ module.exports = {
             }
         }, {
             test: /\.js$/,
-            use: 'babel-loader',
+            loader: 'babel-loader',
             include: [path.resolve(__dirname, 'src')]
         }, {
             test: /\.css$/,
@@ -91,7 +92,6 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'runtime'],
-            filename: 'vendor.js',
             minChunks: Infinity
         }),
         new webpack.optimize.CommonsChunkPlugin({
@@ -101,12 +101,12 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.vue'],
+        extensions: ['.js', '.vue', '.scss'],
         alias: {
             'vue': 'vue/dist/vue.common'
         }
     },
-    devtool: '#source-map',
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         inline: true,
