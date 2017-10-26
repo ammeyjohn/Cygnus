@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const path = require('path');
 const webpack = require('webpack');
@@ -6,7 +6,7 @@ const webpack = require('webpack');
 // Plugins
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -15,32 +15,51 @@ module.exports = {
         vendor: [
             'vue',
             'vue-router',
-            'iview'
+            'element-ui'
         ]
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
-        filename: 'js/[name].[hash:4].js',
-        chunkFilename: 'js/[name].[chunkhash:4].chunk.js'
+        filename: 'js/[name].js',
+        chunkFilename: 'js/[name].chunk.js'
     },
     module: {
         rules: [{
             test: /\.vue$/,
-            use: "vue-loader"
+            use: 'vue-loader',
+            options: {
+                loaders: {
+                    scss: ExtractTextPlugin.extract({
+                        use: ['css-loader', 'autoprefixer-loader', 'sass-loader'],
+                        fallback: 'vue-style-loader'
+                    }),
+                    css: ExtractTextPlugin.extract({
+                        use: ['css-loader', 'autoprefixer-loader'],
+                        fallback: 'vue-style-loader'
+                    })
+                }
+            }
         }, {
             test: /\.js$/,
-            use: "babel-loader",
+            use: 'babel-loader',
             include: [path.resolve(__dirname, 'src')]
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                use: ["css-loader"]
+                use: ['css-loader?minimize', 'autoprefixer-loader'],
+                fallback: 'style-loader'
+            })
+        }, {
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+                use: ['autoprefixer-loader', 'sass-loader'],
+                fallback: 'style-loader'
             })
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             use: [{
-                loader: "url-loader",
+                loader: 'url-loader',
                 options: {
                     limit: 10000,
                     name: 'images/[name].[hash:7].[ext]'
@@ -49,7 +68,7 @@ module.exports = {
         }, {
             test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
             use: [{
-                loader: "url-loader",
+                loader: 'url-loader',
                 options: {
                     limit: 10000,
                     name: 'fonts/[name].[hash:7].[ext]'
@@ -63,7 +82,8 @@ module.exports = {
         //     'process.env.NODE_ENV': 'development'
         // }),
         new ExtractTextPlugin({
-            filename: 'css/style.css'
+            filename: 'css/[name].css',
+            allChunks: true
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -71,6 +91,7 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'runtime'],
+            filename: 'vendor.js',
             minChunks: Infinity
         }),
         new webpack.optimize.CommonsChunkPlugin({
@@ -80,12 +101,12 @@ module.exports = {
         })
     ],
     resolve: {
+        extensions: ['.js', '.vue'],
         alias: {
             'vue': 'vue/dist/vue.common'
-        },
-        extensions: ['.js', '.jsx']
+        }
     },
-    devtool: 'inline-source-map',
+    devtool: '#source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         inline: true,
