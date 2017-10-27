@@ -8,6 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -62,7 +63,7 @@ module.exports = {
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
+                    limit: 10240,
                     name: 'images/[name].[hash:7].[ext]'
                 }
             }]
@@ -71,7 +72,7 @@ module.exports = {
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
+                    limit: 10240,
                     name: 'fonts/[name].[hash:7].[ext]'
                 }
             }]
@@ -82,6 +83,10 @@ module.exports = {
         // new webpack.DefinePlugin({
         //     'process.env.NODE_ENV': 'development'
         // }),
+        new CopyWebpackPlugin([{
+            from: 'assets',
+            to: 'dist'
+        }]),
         new ExtractTextPlugin({
             filename: 'css/[name].css',
             allChunks: true

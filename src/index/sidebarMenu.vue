@@ -10,16 +10,6 @@
                 评论管理
             </MenuItem>
         </MenuGroup>
-        <MenuGroup title="统计分析">
-            <MenuItem name="3">
-                <Icon type="heart"></Icon>
-                用户留存
-            </MenuItem>
-            <MenuItem name="4">
-                <Icon type="heart-broken"></Icon>
-                流失用户
-            </MenuItem>
-        </MenuGroup>
     </Menu>
 </template>
 
@@ -27,12 +17,8 @@
     export default {
         data () {
             return {
-                theme3: 'light'
+                
             }
         }
     }
 </script>
-
-<style lang="scss">
-
-</style>
