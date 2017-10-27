@@ -33,11 +33,11 @@ module.exports = {
             options: {
                 loaders: {
                     scss: ExtractTextPlugin.extract({
-                        use: ['css-loader', 'autoprefixer-loader', 'sass-loader'],
+                        use: ['css-loader', 'sass-loader'],
                         fallback: 'vue-style-loader'
                     }),
                     css: ExtractTextPlugin.extract({
-                        use: ['css-loader', 'autoprefixer-loader'],
+                        use: ['css-loader'],
                         fallback: 'vue-style-loader'
                     })
                 }
@@ -49,13 +49,13 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                use: ['css-loader?minimize', 'autoprefixer-loader'],
+                use: ['css-loader?minimize'],
                 fallback: 'style-loader'
             })
         }, {
             test: /\.scss$/,
             use: ExtractTextPlugin.extract({
-                use: ['autoprefixer-loader', 'sass-loader'],
+                use: ['sass-loader'],
                 fallback: 'style-loader'
             })
         }, {
@@ -64,7 +64,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10240,
-                    name: 'images/[name].[hash:7].[ext]'
+                    name: 'assets/images/[name].[ext]'
                 }
             }]
         }, {
@@ -73,7 +73,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10240,
-                    name: 'fonts/[name].[hash:7].[ext]'
+                    name: 'assets/fonts/[name].[ext]'
                 }
             }]
         }]
@@ -84,8 +84,8 @@ module.exports = {
         //     'process.env.NODE_ENV': 'development'
         // }),
         new CopyWebpackPlugin([{
-            from: 'assets',
-            to: 'dist'
+            from: './src/assets',
+            to: 'assets'
         }]),
         new ExtractTextPlugin({
             filename: 'css/[name].css',
