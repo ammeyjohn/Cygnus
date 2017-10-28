@@ -68,6 +68,30 @@
 }
 
 
+/* tags */
+
+.tags-con {
+    height: 40px;
+    padding: 2px 10px;
+    z-index: -1;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+
+/* View */
+
+.single-page-con {
+    box-sizing: border-box;
+    padding: 100px 0 10px;
+    background-color: #F0F0F0;
+    z-index: -1;
+    .single-page {
+        margin: 10px;
+    }
+}
+
+
 /* SidebarMenu */
 
 .sidebar-menu {
