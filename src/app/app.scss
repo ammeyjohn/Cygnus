@@ -1,4 +1,4 @@
-.index {
+.app {
     position: relative;
     width: 100%;
     height: 100%;
@@ -7,7 +7,7 @@
 
 /* Header */
 
-.index-header-con {
+.app-header-con {
     box-sizing: border-box;
     position: fixed;
     display: block;
@@ -18,7 +18,7 @@
     box-shadow: 0 2px 1px 1px rgba(100, 100, 100, .1);
 }
 
-.index-header {
+.app-header {
     height: 60px;
     background: #fff;
     box-shadow: 0 2px 1px 1px rgba(100, 100, 100, .1);
@@ -43,7 +43,7 @@
     top: 0;
     width: 150px;
     height: 100%;
-    .main-user-name {
+    .app-user-name {
         display: inline-block;
         width: 80px;
         vertical-align: middle;
@@ -58,7 +58,7 @@
     padding-right: 14px;
 }
 
-.index-user-name {
+.app-user-name {
     display: inline-block;
     width: 80px;
     vertical-align: middle;

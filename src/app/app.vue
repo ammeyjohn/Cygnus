@@ -1,23 +1,23 @@
 <style lang="scss">
-    @import "./index.scss";
+    @import "./app.scss";
 </style>
 
 <template>
-    <div class="index">
+    <div class="app">
         <div class="sidebar-menu">
             <div class="logo">
                 <img src="../assets/images/logo/logo.jpg">
             </div>
             <sidebar-menu></sidebar-menu>
         </div>
-        <div class="index-header-con">
-            <div class="index-header">
+        <div class="app-header-con">
+            <div class="app-header">
                 <div class="header-avatar-con">
                     <div class="user-dropdown-menu-con">
                         <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                             <Dropdown>
                                 <a href="javascript:void(0)">
-                                    <span class="index-user-name">{{ userName }}</span>
+                                    <span class="app-user-name">{{ userName }}</span>
                                     <Icon type="arrow-down-b"></Icon>
                                 </a>
                                 <DropdownMenu slot="list">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="tags-con">
-
+                <tags-page-opened :pageTagsList="pageTagsList"></tags-page-opened>
             </div>
         </div>
         <div class="single-page-con">
@@ -44,15 +44,22 @@
 
 <script>
     import sidebarMenu from './sidebarMenu.vue';
+    import tagsPageOpened from './tagsPageOpened.vue';
 
     export default {
         components: {
-            sidebarMenu
+            sidebarMenu,
+            tagsPageOpened
         },
         data() {
             return {
                 userName: 'cygnus_admin'
             }
+        },
+        computed: {
+            pageTagsList() {
+                return this.$store.state.pageOpenedList; // 打开的页面的页面对象
+            },
         }
     }
 </script>

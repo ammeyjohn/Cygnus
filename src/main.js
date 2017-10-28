@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
-import App from './app.vue';
+import App from './app/app.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -13,15 +13,8 @@ Vue.use(iView);
 const router = new VueRouter({
     routes: [{
         path: '/',
-        name: 'root',
-        redirect: '/index'
-    }, {
-        path: '/index',
-        name: 'index',
-        component: resolve => {
-            require(['./index/index.vue'], resolve);
-        },
-    }]
+        name: 'root'
+    }] 
 });
 
 const store = new Vuex.Store({
@@ -29,6 +22,10 @@ const store = new Vuex.Store({
         currentPath: [{
             title: '首页',
             path: '',
+            name: 'home_index'
+        }],
+        pageOpenedList: [{
+            title: '首页',
             name: 'home_index'
         }]
     }
