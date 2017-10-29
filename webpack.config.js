@@ -103,12 +103,17 @@ module.exports = {
             minChunks: 3,
             children: true,
             async: true
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
         })
     ],
     resolve: {
         extensions: ['.js', '.vue', '.scss'],
         alias: {
-            'vue': 'vue/dist/vue.common'
+            'vue': 'vue/dist/vue.common',
+            'jquery': 'jquery'
         }
     },
     devtool: 'inline-source-map',

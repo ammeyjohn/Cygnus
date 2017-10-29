@@ -1,9 +1,9 @@
 <template>
     <Menu theme="dark" active-name="1" width="200px">
-        <MenuGroup title="内容管理">
+        <MenuGroup title="产品管理">
             <MenuItem name="1">
                 <Icon type="document-text"></Icon>
-                文章管理
+                产品下载
             </MenuItem>
             <MenuItem name="2">
                 <Icon type="chatbubbles"></Icon>
