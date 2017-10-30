@@ -8,11 +8,10 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
 // jQuery
-import 'jquery/dist/jquery.min.js'
+import 'jquery/dist/jquery.min.js';
 
 // Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Entry
 import App from './app/app.vue';
