@@ -9,6 +9,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -83,6 +84,10 @@ module.exports = {
         // new webpack.DefinePlugin({
         //     'process.env.NODE_ENV': 'development'
         // }),
+        new CleanWebpackPlugin(['dist'], {
+            root: __dirname,
+            verbose: true
+        }),
         new CopyWebpackPlugin([{
             from: './src/assets',
             to: 'assets'
