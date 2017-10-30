@@ -14,11 +14,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         main: './src/main.js',
-        vendor: [
+        vue: [
             'vue',
             'vue-router',
             'vuex',
-            'iview'
+            'axios',
+        ],
+        vendor: [
+            'iview',
+            'jquery',
+            'bootstrap/dist/css/bootstrap.min.css',
+            'bootstrap/dist/js/bootstrap.min'
         ]
     },
     output: {
