@@ -1,13 +1,15 @@
 <template>
     <Menu theme="dark" active-name="1" width="200px">
-        <MenuGroup title="产品管理">
+        <MenuGroup title="敏捷产品">
             <MenuItem name="1">
                 <Icon type="document-text"></Icon>
-                产品下载
+                项目协助
             </MenuItem>
-            <MenuItem name="2">
-                <Icon type="chatbubbles"></Icon>
-                评论管理
+        </MenuGroup>
+        <MenuGroup title="示例页面">
+            <MenuItem name="1">
+                <Icon type="document-text"></Icon>
+                示例
             </MenuItem>
         </MenuGroup>
     </Menu>

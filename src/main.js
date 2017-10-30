@@ -7,9 +7,12 @@ import Vuex from 'vuex';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
+// jQuery
+import 'jquery/dist/jquery.min.js'
+
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.min'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 // Entry
 import App from './app/app.vue';
@@ -21,17 +24,23 @@ Vue.use(iView);
 const router = new VueRouter({
     routes: [{
         path: '/',
-        name: 'root'
-    }, 
-    // {
-    //     title: '产品下载',
-    //     path: '/production/download',
-    //     name: 'prod_download',
-    //     component: resolve => {
-    //         require(['./production/download/download.vue'], resolve);
-    //     }
-    // }
-]
+        name: 'root',
+        redirect: '/demo'
+    }, {
+        title: '产品运维',
+        path: '/operation',
+        name: 'operation',
+        component: resolve => {
+            require(['./operation/operation.vue'], resolve);
+        }
+    }, {
+        title: '示例',
+        path: '/demo',
+        name: 'demo',
+        component: resolve => {
+            require(['./demo/demo.vue'], resolve);
+        }
+    }]
 });
 
 const store = new Vuex.Store({
