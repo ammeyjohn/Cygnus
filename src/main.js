@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 // iView
 import iView from 'iview';
@@ -58,6 +59,9 @@ const store = new Vuex.Store({
         }]
     }
 });
+
+// Axios global config
+axios.defaults.baseURL = "http://128.1.10.21:8055/api";
 
 new Vue({
     el: '#app',

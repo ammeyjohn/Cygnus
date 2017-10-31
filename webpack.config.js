@@ -23,8 +23,8 @@ module.exports = {
         vendor: [
             'iview',
             'jquery',
-            'bootstrap/dist/css/bootstrap.min.css',
-            'bootstrap/dist/js/bootstrap.min'
+            'bootstrap/dist/css/bootstrap.min.css'
+            // 'bootstrap/dist/js/bootstrap.min'
         ]
     },
     output: {
