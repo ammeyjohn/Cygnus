@@ -4,7 +4,8 @@ var fs = require("fs");
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var productRouter = require('./server/routes/product');
+var productRouter = require('./server/routes/rt.product');
+var projectRouter = require('./server/routes/rt.project');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/cygnus/api/product', productRouter);
+app.use('/cygnus/api/project', projectRouter);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', function(req, res) {

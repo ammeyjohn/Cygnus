@@ -1,4 +1,4 @@
-const debug = require('debug')('cygnus:api:project');
+const debug = require('debug')('cygnus:api:product');
 const _ = require('lodash');
 const Q = require('q');
 const mongo = require('../mongo.js');

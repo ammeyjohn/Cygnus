@@ -1,11 +1,11 @@
 var debug = require('debug')('cygnus:router:project');
 var express = require('express');
 var router = express.Router();
-var prodApi = require('../api/product');
+var prjApi = require('../api/api.project');
 
-// Get all actived products
+// Get all actived projects 
 router.get('/', function (req, res) {
-    prodApi.getProducts().then((products) => {
+    prjApi.getProjects().then((products) => {
         res.json({
             code: 0,
             data: products
