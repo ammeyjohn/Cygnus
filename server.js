@@ -4,6 +4,18 @@ var fs = require("fs");
 var express = require('express');
 var bodyParser = require('body-parser');
 
+// Logger
+const log = require('winston');
+log.configure({
+    transports: [
+        new log.transports.Console(),
+        new log.transports.File({ filename: 'logs/log.log' })
+    ],
+    exceptionHandlers: [
+        new log.transports.File({ filename: 'logs/exceptions.log' })
+    ]
+});
+
 var productRouter = require('./server/routes/rt.product');
 var projectRouter = require('./server/routes/rt.project');
 
@@ -15,7 +27,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use(function(err, req, res, next) {    
+app.use(function(err, req, res, next) {
     res.status(500).send(err);
 })
 
@@ -40,5 +52,5 @@ var server = app.listen(8051, function() {
     var host = server.address().address
     var port = server.address().port
 
-    console.log("Server listening at http://%s:%s", host, port)
+    log.info("Server listening at http://%s:%s", host, port);
 });
