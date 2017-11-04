@@ -1,3 +1,5 @@
+'use strict';
+
 // Vue
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -27,11 +29,11 @@ const router = new VueRouter({
         name: 'root',
         redirect: '/demo'
     }, {
-        title: '产品运维',
-        path: '/operation',
-        name: 'operation',
+        title: '工程协助',
+        path: '/assist',
+        name: 'assist',
         component: resolve => {
-            require(['./operation/operation.vue'], resolve);
+            require(['./assist/assist.vue'], resolve);
         }
     }, {
         title: '示例',
@@ -61,7 +63,7 @@ const store = new Vuex.Store({
 });
 
 // Axios global config
-axios.defaults.baseURL = "http://128.1.10.21:8055/api";
+axios.defaults.baseURL = "http://localhost:8051/cygnus/api";
 
 new Vue({
     el: '#app',

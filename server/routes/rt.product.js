@@ -1,9 +1,10 @@
 const debug = require('debug')('cygnus:router:product');
 const express = require('express');
 const router = express.Router();
+const _ = require('lodash');
 const prodApi = require('../api/api.product');
 
-const query = function(res, condition) {
+const query = function (res, condition) {
     prodApi.getProducts(condition)
         .then((products) => {
             res.json({
@@ -24,10 +25,16 @@ router.post('/', (req, res) => {
     query(res, cond);
 });
 
-// Get product by id.
-router.get('/:id', (req, res) => {
-    let cond = {
-        id: parseInt(req.params.id)
+// Get products by id string.
+router.get('/:idstr', (req, res) => {
+    let ids = _.split(req.params.idstr, ',');
+    let cond = {};
+    if (ids.length <= 1) {
+        cond.id = parseInt(ids[0]);
+    } else {
+        cond.id = {
+            $in: _.map(ids, parseInt)
+        };
     }
     query(res, cond);
 });
