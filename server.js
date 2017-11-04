@@ -18,6 +18,7 @@ log.configure({
 
 var productRouter = require('./server/routes/rt.product');
 var projectRouter = require('./server/routes/rt.project');
+var woRouter = require('./server/routes/rt.workorder');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use(function(req, res, next) {
 
 app.use('/cygnus/api/product', productRouter);
 app.use('/cygnus/api/project', projectRouter);
+app.use('/cygnus/api/wo', woRouter);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', function(req, res) {

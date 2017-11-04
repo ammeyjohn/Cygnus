@@ -29,11 +29,11 @@ const router = new VueRouter({
         name: 'root',
         redirect: '/demo'
     }, {
-        title: '工程协助',
+        title: '工单',
         path: '/assist',
         name: 'assist',
         component: resolve => {
-            require(['./assist/assist.vue'], resolve);
+            require(['./workorder/workorder.vue'], resolve);
         }
     }, {
         title: '示例',
@@ -55,9 +55,6 @@ const store = new Vuex.Store({
         pageOpenedList: [{
             title: '首页',
             name: 'home_index'
-        }, {
-            title: '首页sss',
-            name: 'home_indessssssx'
         }]
     }
 });
