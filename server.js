@@ -5,21 +5,25 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 // Logger
-const log = require('winston');
-log.configure({
-    transports: [
-        new log.transports.Console(),
-        new log.transports.File({ filename: 'logs/log.log' })
-    ],
-    exceptionHandlers: [
-        new log.transports.File({ filename: 'logs/exceptions.log' })
-    ]
-});
+// const log = require('winston');
+// log.configure({
+//     transports: [
+//         new log.transports.Console(),
+//         new log.transports.File({
+//             filename: 'logs/log.log'
+//         })
+//     ],
+//     exceptionHandlers: [
+//         new log.transports.File({
+//             filename: 'logs/exceptions.log'
+//         })
+//     ]
+// });
 
 var userRouter = require('./server/routes/rt.user');
-var productRouter = require('./server/routes/rt.product');
-var projectRouter = require('./server/routes/rt.project');
-var woRouter = require('./server/routes/rt.workorder');
+// var productRouter = require('./server/routes/rt.product');
+// var projectRouter = require('./server/routes/rt.project');
+// var woRouter = require('./server/routes/rt.workorder');
 
 var app = express();
 
@@ -29,11 +33,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(500).send(err);
 })
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -42,19 +46,21 @@ app.use(function(req, res, next) {
 });
 
 app.use('/cygnus/api/user', userRouter);
-app.use('/cygnus/api/product', productRouter);
-app.use('/cygnus/api/project', projectRouter);
-app.use('/cygnus/api/wo', woRouter);
+// app.use('/cygnus/api/product', productRouter);
+// app.use('/cygnus/api/project', projectRouter);
+// app.use('/cygnus/api/wo', woRouter);
 
 app.use(express.static(path.join(__dirname, 'dist')));
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
     debug(req.method + ' ' + req.url);
     res.sendFile(path.join(__dirname, './dist/index.html')); // load the single view file (angular will handle the page changes on the front-end)
 });
 
-var server = app.listen(8051, function() {
+var server = app.listen(8051, function () {
     var host = server.address().address
     var port = server.address().port
 
-    log.info("Server listening at http://%s:%s", host, port);
+    // log.info("Server listening at http://%s:%s", host, port);
 });
+
+module.exports = server;

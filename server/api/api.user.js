@@ -4,12 +4,19 @@ const mongo = require('../mongo.js');
 
 const COLLECTION = 'users';
 
+// Select users by condition.
+// If condition is null or undefined, returns all users.
+const select = function (condition) {
+    return mongo.query(COLLECTION, condition);
+}
+
 // Select users by ids.
-exports.selectByIds = function(idstr) {
+const selectByIds = function (idstr) {
     let cond = {};
+    let ids = [];
     if (idstr) {
-        let ids = _.split(idstr, ',');
-        if (ids.length <= 1) {
+        ids = _.split(idstr, ',');
+        if (ids.length == 1) {
             cond.id = parseInt(ids[0]);
         } else {
             cond.id = {
@@ -17,11 +24,16 @@ exports.selectByIds = function(idstr) {
             };
         }
     }
-    return exports.select(cond);
+    return select(cond)
+        .then(users => {
+            if (users) {
+                if (ids.length == 1) {
+                    return users[0];
+                }
+            }
+            return users;
+        });
 }
 
-// Select users by condition.
-// If condition is null or undefined, returns all users.
-exports.select = function(condition) {
-    return mongo.query(COLLECTION, condition);
-}
+exports['select'] = select;
+exports['selectByIds'] = selectByIds;
