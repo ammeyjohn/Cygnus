@@ -7,6 +7,6 @@ const COLLECTION = 'products';
 
 // Select products by condition.
 // If condition is null or undefined, returns all products.
-exports.getProducts = function(condition) {
+exports.select = function(condition) {
     return mongo.query(COLLECTION, condition);
 }

@@ -7,6 +7,6 @@ const COLLECTION = 'projects';
 
 // Select projects by condition.
 // If condition is null or undefined, returns all projects.
-exports.getProjects = function(condition) {
+exports.select = function(condition) {
     return mongo.query(COLLECTION, condition);
 }

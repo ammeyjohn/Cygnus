@@ -16,6 +16,7 @@ log.configure({
     ]
 });
 
+var userRouter = require('./server/routes/rt.user');
 var productRouter = require('./server/routes/rt.product');
 var projectRouter = require('./server/routes/rt.project');
 var woRouter = require('./server/routes/rt.workorder');
@@ -40,6 +41,7 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use('/cygnus/api/user', userRouter);
 app.use('/cygnus/api/product', productRouter);
 app.use('/cygnus/api/project', projectRouter);
 app.use('/cygnus/api/wo', woRouter);

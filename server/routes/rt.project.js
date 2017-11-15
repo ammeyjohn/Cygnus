@@ -4,7 +4,7 @@ const router = express.Router();
 const prjApi = require('../api/api.project');
 
 const query = function(res, condition) {
-    prjApi.getProjects(condition)
+    prjApi.select(condition)
         .then((projects) => {
             res.json({
                 code: 0,

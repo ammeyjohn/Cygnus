@@ -4,8 +4,8 @@ const router = express.Router();
 const _ = require('lodash');
 const prodApi = require('../api/api.product');
 
-const query = function (res, condition) {
-    prodApi.getProducts(condition)
+const query = function(res, condition) {
+    prodApi.select(condition)
         .then((products) => {
             res.json({
                 code: 0,
