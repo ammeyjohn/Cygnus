@@ -23,7 +23,7 @@ const router = new VueRouter({
         name: 'root',
         redirect: '/demo'
     }, {
-        title: '工单',
+        title: '项目工单',
         path: '/workorder',
         name: 'workorder',
         component: resolve => {
@@ -42,13 +42,13 @@ const router = new VueRouter({
 const store = new Vuex.Store({
     state: {
         currentPath: [{
-            title: '产品下载',
-            path: '/download',
-            name: 'prod_download'
+            title: '项目工单',
+            path: '/workorder',
+            name: 'workorder'
         }],
         pageOpenedList: [{
-            title: '首页',
-            name: 'home_index'
+            title: '项目工单',
+            name: 'workorder'
         }]
     }
 });
