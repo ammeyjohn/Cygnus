@@ -1,61 +1,60 @@
 {
-  "name": "cygnus",
-  "version": "0.0.1",
-  "description": "A product release manage system.",
-  "main": "index.js",
-  "scripts": {
-    "dev": "webpack-dev-server --hot --open",
-    "build": "webpack --progress --colors"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ammeyjohn/Cygnus.git"
-  },
-  "keywords": [],
-  "author": "Patrick<ammeyjohn@qq.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ammeyjohn/Cygnus/issues"
-  },
-  "homepage": "https://github.com/ammeyjohn/Cygnus#readme",
-  "dependencies": {
-    "axios": "^0.17.0",
-    "body-parser": "^1.18.2",
-    "bootstrap": "^4.0.0-beta.2",
-    "element-ui": "^1.4.8",
-    "express": "^4.16.2",
-    "iview": "^2.5.1",
-    "jquery": "^3.2.1",
-    "lodash": "^4.17.4",
-    "mongodb": "^2.2.33",
-    "popper.js": "^1.12.6",
-    "q": "^1.5.1",
-    "request": "^2.83.0",
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.0",
-    "winston": "^2.4.0"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "clean-webpack-plugin": "^0.1.17",
-    "copy-webpack-plugin": "^4.2.0",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.1",
-    "file-loader": "^1.1.5",
-    "html-webpack-plugin": "^2.30.1",
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.0",
-    "uglifyjs-webpack-plugin": "^1.0.0",
-    "url-loader": "^0.6.2",
-    "vue-loader": "^13.3.0",
-    "vue-style-loader": "^3.0.3",
-    "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.8.1",
-    "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.2"
-  }
+    "name": "cygnus",
+    "version": "0.0.1",
+    "description": "A product release manage system.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack-dev-server --hot --open",
+        "build": "webpack --progress --colors"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ammeyjohn/Cygnus.git"
+    },
+    "keywords": [],
+    "author": "Patrick<ammeyjohn@qq.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ammeyjohn/Cygnus/issues"
+    },
+    "homepage": "https://github.com/ammeyjohn/Cygnus#readme",
+    "dependencies": {
+        "axios": "^0.17.0",
+        "body-parser": "^1.18.2",
+        "bootstrap": "^3.3.7",
+        "express": "^4.16.2",
+        "iview": "^2.5.1",
+        "jquery": "^3.2.1",
+        "lodash": "^4.17.4",
+        "mongodb": "^2.2.33",
+        "q": "^1.5.1",
+        "request": "^2.83.0",
+        "vue": "^2.5.2",
+        "vue-router": "^3.0.1",
+        "vuex": "^3.0.0",
+        "winston": "^2.4.0"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-env": "^1.6.1",
+        "clean-webpack-plugin": "^0.1.17",
+        "copy-webpack-plugin": "^4.2.0",
+        "css-loader": "^0.28.7",
+        "extract-text-webpack-plugin": "^3.0.1",
+        "file-loader": "^1.1.5",
+        "html-loader": "^0.5.1",
+        "html-webpack-plugin": "^2.30.1",
+        "node-sass": "^4.5.3",
+        "sass-loader": "^6.0.6",
+        "style-loader": "^0.19.0",
+        "uglifyjs-webpack-plugin": "^1.0.0",
+        "url-loader": "^0.6.2",
+        "vue-loader": "^13.3.0",
+        "vue-style-loader": "^3.0.3",
+        "vue-template-compiler": "^2.5.2",
+        "webpack": "^3.8.1",
+        "webpack-bundle-analyzer": "^2.9.0",
+        "webpack-dev-server": "^2.9.2"
+    }
 }

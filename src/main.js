@@ -10,12 +10,6 @@ import axios from 'axios';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
-// jQuery
-import 'jquery/dist/jquery.min.js';
-
-// Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 // Entry
 import App from './app/app.vue';
 
@@ -30,8 +24,8 @@ const router = new VueRouter({
         redirect: '/demo'
     }, {
         title: '工单',
-        path: '/assist',
-        name: 'assist',
+        path: '/workorder',
+        name: 'workorder',
         component: resolve => {
             require(['./workorder/workorder.vue'], resolve);
         }

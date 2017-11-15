@@ -14,18 +14,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         main: './src/main.js',
-        vue: [
-            'vue',
-            'vue-router',
-            'vuex',
-            'axios',
-        ],
-        vendor: [
-            'iview',
-            'jquery',
-            'bootstrap/dist/css/bootstrap.min.css'
-            // 'bootstrap/dist/js/bootstrap.min'
-        ]
+        vendor: './src/vendor.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -56,7 +45,8 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                use: ['css-loader?minimize'],
+                // use: ['css-loader?minimize'],
+                use: ['css-loader'],
                 fallback: 'style-loader'
             })
         }, {
@@ -65,6 +55,9 @@ module.exports = {
                 use: ['sass-loader'],
                 fallback: 'style-loader'
             })
+        }, {
+            test: /\.(html)$/,
+            loader: 'html-loader'
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             use: [{
@@ -90,14 +83,14 @@ module.exports = {
         // new webpack.DefinePlugin({
         //     'process.env.NODE_ENV': 'development'
         // }),
-        new CleanWebpackPlugin(['dist'], {
-            root: __dirname,
-            verbose: true
-        }),
-        new CopyWebpackPlugin([{
-            from: './src/assets',
-            to: 'assets'
-        }]),
+        // new CleanWebpackPlugin(['dist'], {
+        //     root: __dirname,
+        //     verbose: true
+        // }),
+        // new CopyWebpackPlugin([{
+        //     from: './src/assets',
+        //     to: 'assets'
+        // }]),
         new ExtractTextPlugin({
             filename: 'css/[name].css',
             allChunks: true
