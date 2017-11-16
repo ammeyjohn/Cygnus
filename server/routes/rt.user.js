@@ -19,10 +19,10 @@ router.get('/', function(req, res) {
 });
 
 // Query users by condition.
-router.post('/', (req, res) => {
-    let cond = req.body.condition;
-    query(res, cond);
-});
+// router.post('/', (req, res) => {
+//     let cond = req.body.condition;
+//     query(res, cond);
+// });
 
 // Get users by ids.
 router.get('/:idstr', (req, res) => {

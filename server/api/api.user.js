@@ -6,12 +6,12 @@ const COLLECTION = 'users';
 
 // Select users by condition.
 // If condition is null or undefined, returns all users.
-const select = function (condition) {
+const select = function(condition) {
     return mongo.query(COLLECTION, condition);
 }
 
 // Select users by ids.
-const selectByIds = function (idstr) {
+const selectByIds = function(idstr) {
     let cond = {};
     let ids = [];
     if (idstr) {
@@ -35,5 +35,7 @@ const selectByIds = function (idstr) {
         });
 }
 
-exports['select'] = select;
-exports['selectByIds'] = selectByIds;
+module.exports = {
+    select: select,
+    selectByIds: selectByIds
+};
