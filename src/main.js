@@ -12,6 +12,7 @@ import 'iview/dist/styles/iview.css';
 
 // Entry
 import App from './app/app.vue';
+import Main from './main/main.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -21,21 +22,34 @@ const router = new VueRouter({
     routes: [{
         path: '/',
         name: 'root',
-        redirect: '/demo'
+        redirect: '/login'
     }, {
-        title: '项目工单',
-        path: '/workorder',
-        name: 'workorder',
+        title: '登录',
+        path: '/login',
+        name: 'login',
         component: resolve => {
-            require(['./workorder/workorder.vue'], resolve);
+            require(['./login/login.vue'], resolve);
         }
     }, {
-        title: '示例',
-        path: '/demo',
-        name: 'demo',
-        component: resolve => {
-            require(['./demo/demo.vue'], resolve);
-        }
+        title: 'main',
+        path: '/main',
+        name: 'main',
+        component: Main,
+        children: [{
+            title: '项目工单',
+            path: 'workorder',
+            name: 'workorder',
+            component: resolve => {
+                require(['./workorder/workorder.vue'], resolve);
+            }
+        }, {
+            title: '示例',
+            path: '/demo',
+            name: 'demo',
+            component: resolve => {
+                require(['./demo/demo.vue'], resolve);
+            }
+        }]
     }]
 });
 
