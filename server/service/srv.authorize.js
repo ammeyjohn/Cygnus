@@ -3,6 +3,7 @@ const log = require('winston');
 const Q = require('q');
 const ldap = require('ldapjs');
 const settings = require('../settings');
+const UserService = require('./srv.user');
 
 const CODE_AUTH_LOGIN_ERROR = -11;
 const CODE_AUTH_LDAP_SEARCH_ERROR = -12;
@@ -37,13 +38,13 @@ const ldap_login = (userName, password) => {
             scope: 'sub'
         };
 
-        client.search(settings.ldap.baseDN, opts, function(err, res) {
+        client.search(settings.ldap.baseDN, opts, function (err, res) {
             if (err) {
                 defered.reject(err);
                 return;
             }
 
-            res.on('searchEntry', function(entry) {
+            res.on('searchEntry', function (entry) {
                 let obj = entry.object;
                 let user = {
                     name: obj.name,
@@ -55,13 +56,18 @@ const ldap_login = (userName, password) => {
                     source: 'LDAP',
                     createTime: new Date()
                 }
-                let credential = {
-                    user: user,
-                    success: true,
-                    loginTime: new Date(),
-                    token: ''
-                }
-                defered.resolve(credential);
+
+                var userSrv = new UserService();
+                userSrv.addUser(user)
+                    .then(ret => {
+                        let credential = {
+                            user: user,
+                            success: true,
+                            loginTime: new Date(),
+                            token: ''
+                        }
+                        defered.resolve(credential);
+                    });
             });
 
             res.on('error', (err) => {
