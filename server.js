@@ -25,12 +25,6 @@ log.configure({
     ]
 });
 
-var userRouter = require('./server/routes/rt.user');
-var deptRouter = require('./server/routes/rt.department');
-// var productRouter = require('./server/routes/rt.product');
-// var projectRouter = require('./server/routes/rt.project');
-// var woRouter = require('./server/routes/rt.workorder');
-
 var app = express();
 
 app.use(bodyParser.raw());
@@ -51,11 +45,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/cygnus/api/user', userRouter);
-app.use('/cygnus/api/dept', deptRouter);
-// app.use('/cygnus/api/product', productRouter);
-// app.use('/cygnus/api/project', projectRouter);
-// app.use('/cygnus/api/wo', woRouter);
+var authApi = require('./server/api/api.authorize');
+app.use('/cygnus/api/auth', authApi);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', function(req, res) {
