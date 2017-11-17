@@ -23,6 +23,7 @@ const ldap_login = (userName, password) => {
         url: settings.ldap.url
     });
 
+    // Try login ldap by email and password. 
     client.bind(dn, password, (err) => {
         if (err) {
             log.error(err);
@@ -38,13 +39,13 @@ const ldap_login = (userName, password) => {
             scope: 'sub'
         };
 
-        client.search(settings.ldap.baseDN, opts, function (err, res) {
+        client.search(settings.ldap.baseDN, opts, function(err, res) {
             if (err) {
                 defered.reject(err);
                 return;
             }
 
-            res.on('searchEntry', function (entry) {
+            res.on('searchEntry', function(entry) {
                 let obj = entry.object;
                 let user = {
                     name: obj.name,
