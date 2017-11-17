@@ -26,64 +26,84 @@ const ldap_login = (userName, password) => {
     // Try login ldap by email and password. 
     client.bind(dn, password, (err) => {
         if (err) {
-            log.error(err);
             defered.reject({
                 code: CODE_AUTH_LOGIN_ERROR,
-                message: 'Invalid user name or password'
+                success: false,
+                message: 'Invalid user name or wrong password',
+                error: err
             });
             return;
         }
 
-        let opts = {
-            filter: '(mail=' + dn + ')',
-            scope: 'sub'
-        };
+        var userSrv = new UserService();
+        userSrv.getUserByMail(dn)
+            .then(ret => {
 
-        client.search(settings.ldap.baseDN, opts, function(err, res) {
-            if (err) {
-                defered.reject(err);
-                return;
-            }
-
-            res.on('searchEntry', function(entry) {
-                let obj = entry.object;
-                let user = {
-                    name: obj.name,
-                    department: obj.department,
-                    email: obj.mail,
-                    userName: obj.sAMAccountName,
-                    mobile: obj.mobile,
-                    title: obj.title,
-                    source: 'LDAP',
-                    createTime: new Date()
+                let credential = {
+                    user: null,
+                    success: true,
+                    loginTime: new Date()
                 }
 
-                var userSrv = new UserService();
-                userSrv.addUser(user)
-                    .then(ret => {
-                        let credential = {
-                            user: user,
-                            success: true,
-                            loginTime: new Date(),
-                            token: ''
+                if (ret) {
+                    // User has been existed in mongodb.
+                    credential.user = ret;
+                    defered.resolve(credential);
+                    return;
+                }
+
+                let opts = {
+                    filter: '(mail=' + dn + ')',
+                    scope: 'sub'
+                };
+
+                client.search(settings.ldap.baseDN, opts, function(err, res) {
+                    if (err) {
+                        defered.reject({
+                            code: CODE_AUTH_LOGIN_ERROR,
+                            success: false,
+                            message: 'Search user info from ldap error.',
+                            error: err
+                        });
+                        return;
+                    }
+
+                    res.on('searchEntry', function(entry) {
+                        let obj = entry.object;
+                        let user = {
+                            name: obj.name,
+                            department: obj.department,
+                            email: obj.mail,
+                            userName: obj.sAMAccountName,
+                            mobile: obj.mobile,
+                            title: obj.title,
+                            source: 'LDAP',
+                            createTime: new Date()
                         }
-                        defered.resolve(credential);
+
+                        userSrv.addUser(user)
+                            .then(ret => {
+                                credential.user = ret;
+                                defered.resolve(credential);
+                            });
                     });
-            });
 
-            res.on('error', (err) => {
-                client.unbind();
-                log.error(err);
-                defered.reject({
-                    code: CODE_AUTH_LDAP_SEARCH_ERROR,
-                    message: 'Search user info from LDAP error.'
+                    res.on('error', (err) => {
+                        client.unbind();
+                        defered.reject({
+                            code: CODE_AUTH_LDAP_SEARCH_ERROR,
+                            success: false,
+                            message: 'Search user info from LDAP error.',
+                            error: err
+                        });
+                    });
+
+                    res.on('end', (result) => {
+                        client.unbind();
+                    });
                 });
-            });
 
-            res.on('end', (result) => {
-                client.unbind();
             });
-        });
     });
 
     return defered.promise;
@@ -98,7 +118,7 @@ module.exports = class Authorize {
                 return credential;
             })
             .fail((err) => {
-                console.error(err);
+                log.error(err);
                 throw err;
             });
     }

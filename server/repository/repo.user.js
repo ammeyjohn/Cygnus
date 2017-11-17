@@ -15,4 +15,16 @@ module.exports = class UserRepo {
             });
     }
 
+    // Get a specified user by given condition.
+    // Null argument will be ignored.
+    get(userId, userName, mail) {
+        var cond = {};
+        if (userId) cond.id = userId;
+        if (userName) cond.userName = userName;
+        if (mail) cond.email = mail;
+
+        let mongo = new Mongo();
+        return mongo.query(COLLECTION, cond);
+    }
+
 }
