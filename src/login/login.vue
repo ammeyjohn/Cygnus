@@ -20,7 +20,7 @@
                             </Input>
                         </FormItem>
                         <FormItem prop="password">
-                            <Input v-model="form.password">
+                            <Input v-model="form.password" type="password">
                                 <span slot="prepend">
                                     <Icon :size="14" type="locked"></Icon>
                                 </span>
@@ -63,8 +63,7 @@ export default {
         handleSubmit () {
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {
-                    let authsrv = new AuthSrv();
-                    authsrv.login(this.form)
+                    AuthSrv.login(this.form)
                         .then(credential => {
                             // Redirect to index page.
                             this.$router.push({

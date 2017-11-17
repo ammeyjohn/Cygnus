@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-export default class AuthroizeService {
+export default {
 
     // User login
     login(loginInfo) {
@@ -14,6 +14,11 @@ export default class AuthroizeService {
                 Cookies.set('credential', credential);
                 return credential;
             });
+    },
+
+    // Get logined user instance from credential
+    getCredential() {
+        return Cookies.getJSON('credential');
     }
 
 

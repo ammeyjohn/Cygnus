@@ -45,6 +45,7 @@
 <script>
     import sidebarMenu from './sidebarMenu.vue';
     import tagsPageOpened from './tagsPageOpened.vue';
+    import AuthSrv from '../service/authorizeService';
 
     export default {
         components: {
@@ -53,8 +54,13 @@
         },
         data() {
             return {
-                userName: 'cygnus_admin'
+                userName: null
             }
+        },
+        mounted() {
+           let credential = AuthSrv.getCredential();
+
+           this.userName = credential.user.name;
         },
         computed: {
             pageTagsList() {
