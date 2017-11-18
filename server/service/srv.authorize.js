@@ -49,6 +49,7 @@ const ldap_login = (userName, password) => {
                     // User has been existed in mongodb.
                     credential.user = ret;
                     defered.resolve(credential);
+                    client.unbind();
                     return;
                 }
 
