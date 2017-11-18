@@ -3,7 +3,7 @@
 </style>
 
 <template>
-    <div id="main">
+    <div id="main" class="main">
         <div class="sidebar-menu">
             <div class="logo">
                 <img src="../assets/images/logo/logo.jpg">
@@ -30,9 +30,6 @@
                     </div>
                 </div>
             </div>
-            <div class="tags-con">
-                <tags-page-opened :pageTagsList="pageTagsList"></tags-page-opened>
-            </div>
         </div>
         <div class="single-page-con">
             <div class="single-page">
@@ -44,13 +41,11 @@
 
 <script>
     import sidebarMenu from './sidebarMenu.vue';
-    import tagsPageOpened from './tagsPageOpened.vue';
     import AuthSrv from '../service/authorizeService';
 
     export default {
         components: {
             sidebarMenu,
-            tagsPageOpened
         },
         data() {
             return {
@@ -63,9 +58,6 @@
            this.userName = credential.user.name;
         },
         computed: {
-            pageTagsList() {
-                return this.$store.state.pageOpenedList; // 打开的页面的页面对象
-            },
         }
     }
 </script>
