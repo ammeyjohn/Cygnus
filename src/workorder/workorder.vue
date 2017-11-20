@@ -1,3 +1,10 @@
+<style>
+/* .container-fluid .control-label {
+    text-align: left;
+} */
+</style>
+
+
 <template>
     <div class="container-fluid">
         <div class="row">
@@ -8,8 +15,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="project" class="col-md-2 control-label">项目名称</label>
-                                    <div class="col-md-10">
+                                    <label for="project" class="col-md-3 control-label">项目名称</label>
+                                    <div class="col-md-9">
                                         <Select id="project" size="large" v-model="order.projectId" filterable @on-change="onProjectSelectChange">
                                             <Option v-for="item in projects" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
                                         </Select>
@@ -18,8 +25,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="product" class="col-md-2 control-label">产品名称</label>
-                                    <div class="col-md-10">
+                                    <label for="product" class="col-md-3 control-label">产品名称</label>
+                                    <div class="col-md-9">
                                         <Select id="product" v-model="order.productId" placeholder="请选择项目对应的产品" filterable>
                                             <Option v-for="item in products" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
                                         </Select>
@@ -30,8 +37,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="type" class="col-md-2 control-label">工单类型</label>
-                                    <div class="col-md-10">
+                                    <label for="type" class="col-md-3 control-label">工单类型</label>
+                                    <div class="col-md-9">
                                         <Select id="type" size="large" v-model="order.type" placeholder="请选择工单类型">
                                             <Option v-for="item in orderTypes" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
                                         </Select>
@@ -40,8 +47,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="date" class="col-md-2 control-label">事件日期</label>
-                                    <div class="col-md-10">
+                                    <label for="date" class="col-md-3 control-label">事件日期</label>
+                                    <div class="col-md-9">
                                         <DatePicker type="date" size="large" placeholder="请选择事件发生日期" style="display: block"></DatePicker>
                                     </div>
                                 </div>
@@ -50,8 +57,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="title" class="col-md-1 control-label">工单标题</label>
-                                    <div class="col-md-8">
+                                    <label for="title" class="col-md-2 control-label">工单标题</label>
+                                    <div class="col-md-7">
                                         <input id="title" class="form-control" v-model="order.title" placeholder="请对问题进行简短的描述"></input>
                                     </div>
                                     <div class="col-md-3">
@@ -59,7 +66,7 @@
                                             <div class="input-group-addon">
                                                 <i class="glyphicon glyphicon-time"></i>
                                             </div>
-                                            <input id="title" class="form-control" v-model="order.title" placeholder="请对问题进行简短的描述"></input>
+                                            <input id="title" class="form-control" v-model="order.title" placeholder="请输入工时"></input>
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">分钟 <span class="caret"></span></button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
@@ -76,8 +83,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="content" class="col-md-1 control-label">工单内容</label>
-                                    <div class="col-md-11">
+                                    <label for="content" class="col-lg-2 control-label">工单内容</label>
+                                    <div class="col-lg-10">
                                         <textarea id="content" class="form-control" v-model="order.content" rows="20" placeholder="请详细描述问题的表现、重现步骤和现场环境等"></textarea>
                                     </div>
                                 </div>
@@ -86,9 +93,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="tags" class="col-md-1 control-label">工单标签</label>
-                                    <div class="col-md-11">
-                                        <Input id="tags" type="text" placeholder="请输入工单标签"></Input>
+                                    <label for="tags" class="col-md-2 control-label">工单标签</label>
+                                    <div class="col-md-10">
+                                        <Input id="tags" type="text" placeholder="请添加工单标签"></Input>
                                     </div>
                                 </div>
                             </div>
