@@ -101,7 +101,7 @@
 
 <script>
     import _ from 'lodash';
-    import prjSrv from '../project/project.service';
+    import ProjectService from '../project/project.service';
     import prodSrv from '../product/product.service';
     import woSrv from './workorder.service';
 
@@ -137,8 +137,9 @@
             }
         },
         mounted: function () {
-            var __this = this;
-            prjSrv.getAllProjects()
+            let __this = this;            
+            let prjsrv = new ProjectService();
+            prjsrv.getAllProjects()
                 .then(function (response) {
                     __this.projects = response.data.data;
                 });

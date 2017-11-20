@@ -2,21 +2,16 @@
 
 import axios from 'axios';
 
-let projectService = {};
+export default class {
 
-// Get all projects
-projectService.getAllProjects = () => {
-    return axios.get('/project');
-}
+    // Get all acitved projects
+    getAllProjects() {
+        return axios.get('/project/all');
+    }
 
-// Get project by id
-projectService.getProjectById = (id) => {
-    return axios.get('/project/' + id);
-}
+    // Get project by id
+    getProjectById(projectId) {
+        return axios.get('/project/' + id);
+    }
 
-// Get projects by condition 
-projectService.queryProjects = (condition) => {
-    return axios.post('/project', condition);
-}
-
-export default projectService;
+};

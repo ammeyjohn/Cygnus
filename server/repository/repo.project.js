@@ -21,7 +21,10 @@ module.exports = class ProjectRepo {
             id: projectId,
             actived: true
         }).then(ret => {
-            return ret;
+            if (!ret || ret.length == 0) {
+                return null;
+            }
+            return ret[0];
         });
     }
 
