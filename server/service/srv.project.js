@@ -1,6 +1,5 @@
 const debug = require('debug')('cygnus:service:project');
 const log = require('winston');
-const Q = require('q');
 const ProjectRepo = require('../repository/repo.project');
 
 module.exports = class ProjectService {
