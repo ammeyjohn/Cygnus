@@ -17,11 +17,14 @@ module.exports = class UserRepo {
 
     // Get a specified user by given condition.
     // Null argument will be ignored.
-    get(userId, userName, mail) {
+    get(name, userName, mail, fuzzy = false) {
         var cond = {};
-        if (userId) cond.id = userId;
-        if (userName) cond.userName = userName;
-        if (mail) cond.email = mail;
+        if (name)
+            cond.name = fuzzy ? new RegExp(name) : name;
+        if (userName)
+            cond.userName = fuzzy ? new RegExp(userName) : userName;
+        if (mail)
+            cond.email = fuzzy ? new RegExp(mail) : mail;
 
         let mongo = new Mongo();
         return mongo.query(COLLECTION, cond);

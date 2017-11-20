@@ -16,15 +16,44 @@ router.post('/', (req, res) => {
     service.addUser(user)
         .then(ret => {
             res.status(201)
-            .json({
-                code: 0,
-                data: ret
-            });
+                .json({
+                    code: 0,
+                    data: ret
+                });
         })
         .fail(err => {
             res.status(500).send('POST /user/ error');
         });
 
+});
+
+// Send a request to get a user object.
+router.get('/', (req, res) => {
+    let promise = null;
+
+    // let userId = req.params.id;
+    // if (userId) {
+    //     userId = parseInt(userId);
+    //     promise = service.getUserById(userId);
+    // }
+
+    let fuzzy = false;
+    if (req.query.mode === 'fuzzy') {
+        fuzzy = true;
+    }
+
+    let name = req.query.name;
+    let userName = req.query.username;
+    let mail = req.query.mail;
+
+    let service = new UserService();
+    return service.getUser(name, userName, mail, fuzzy)
+        .then(ret => {
+            res.json({
+                code: 0,
+                data: ret
+            });
+        });
 });
 
 

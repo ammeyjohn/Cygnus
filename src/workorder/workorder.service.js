@@ -10,4 +10,6 @@ woService.create = function (workorder) {
     });
 }
 
-export default woService;
+export default {
+
+};
