@@ -46,7 +46,9 @@ app.use(function(req, res, next) {
 });
 
 var authApi = require('./server/api/api.authorize');
+var prjApi = require('./server/api/api.project');
 app.use('/cygnus/api/auth', authApi);
+app.use('/cygnus/api/project', prjApi);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', function(req, res) {
