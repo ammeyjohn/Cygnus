@@ -9,7 +9,7 @@ export default class {
             'userName': userName,
             'mail': mail
         };
-        if(fuzzy) {
+        if (fuzzy) {
             params['mode'] = 'fuzzy';
         }
         return axios.get('/user', {
@@ -19,4 +19,12 @@ export default class {
         });
     }
 
+    // Query users by given params
+    queryUsers(params) {
+        return axios.get('/user/query', {
+            params: params
+        }).then(ret => {
+            return ret.data;
+        });
+    }
 };

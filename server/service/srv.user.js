@@ -16,50 +16,24 @@ module.exports = class UserService {
     }
 
     // Get a user instance by given user id.
-    // getUserById(userId) {
-    //     if (!userId) {
-    //         throw new Error('Null argument "userId"');
-    //     }
+    getUserById(userId) {
+        if (!userId) {
+            throw new Error('Null argument "userId"');
+        }
 
-    //     let repo = new UserRepo();
-    //     return repo.get(userId);
-    // }
+        let repo = new UserRepo();
+        return repo.get(userId);
+    }
 
     // Get a user instance by given condition.
-    getUser(name, userName, mail, fuzzy = false) {
+    getUser(condition, fuzzy) {
         let repo = new UserRepo();
-        return repo.get(name, userName, mail, fuzzy)
-            .then(ret => {
-                if (ret && ret.length > 0) {
-                    return ret[0];
-                }
-                return null; 
-            });
+        return repo.get(condition, fuzzy);
     }
 
-    // Get a user instance by given username.
-    getUserByUserName(userName, fuzzy = false) {
-        if (!userName) {
-            throw new Error('Null argument "userName"');
-        }
-
+    // Query users by given condition.
+    queryUser(condition, fuzzy) {
         let repo = new UserRepo();
-        return repo.get(userName, null, fuzzy);
-    }
-
-    // Get a user instance by given mail address.
-    getUserByMail(mail, fuzzy = false) {
-        if (!mail) {
-            throw new Error('Null argument "mail"');
-        }
-
-        let repo = new UserRepo();
-        return repo.get(null, mail, fuzzy)
-            .then(ret => {
-                if (ret.length > 0) {
-                    return ret[0];
-                }
-                return null;
-            });
+        return repo.query(condition, fuzzy);
     }
 }

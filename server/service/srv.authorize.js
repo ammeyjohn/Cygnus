@@ -36,7 +36,9 @@ const ldap_login = (userName, password) => {
         }
 
         var userSrv = new UserService();
-        userSrv.getUserByMail(dn)
+        userSrv.getUser({
+                'email': dn
+            })
             .then(ret => {
 
                 let credential = {

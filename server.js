@@ -12,6 +12,7 @@ if (!fs.existsSync('logs')) {
 
 const log = require('winston');
 log.configure({
+    level: 'debug',
     transports: [
         new log.transports.Console(),
         new log.transports.File({

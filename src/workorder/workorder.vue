@@ -1,102 +1,131 @@
 <template>
     <Row :gutter="10">
         <Col :xs="24" :sm="24" :md="18">
-        <Card>
-            <p slot="title">工单内容</p>
-            <Form :label-width="100" :rules="ruleValidate">
-                <Row>
-                    <Col span="12">
-                    <FormItem label="项目名称" prop="project">
-                        <Select id="project" v-model="order.projectId" filterable @on-change="onProjectSelectChange">
-                            <Option v-for="item in projects" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
-                        </Select>
-                    </FormItem>
-                    </Col>
-                    <Col span="12">
-                    <FormItem label="产品名称" prop="product">
-                        <Select id="product" v-model="order.productId" placeholder="请选择项目对应的产品" filterable>
-                            <Option v-for="item in products" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
-                        </Select>
-                    </FormItem>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span="12">
-                    <FormItem label="工单类型" prop="orderType">
-                        <Select id="orderType" v-model="order.type" placeholder="请选择工单类型">
-                            <Option v-for="item in orderTypes" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
-                        </Select>
-                    </FormItem>
-                    </Col>
-                    <Col span="12">
-                    <FormItem label="事件日期" prop="eventDate">
-                        <DatePicker type="date" placeholder="请选择事件发生日期" style="display: block"></DatePicker>
-                    </FormItem>
-                    </Col>
-                </Row>
-                <FormItem label="工单标题" prop="title">
+            <Card>
+                <p slot="title">工单内容</p>
+                <Form :label-width="100" :rules="ruleValidate">
                     <Row>
-                        <Col span="18">
-                        <FormItem prop="title">
-                            <Input id="title" v-model="order.title" placeholder="请对问题进行简短的描述"></Input>
+                        <Col span="12">
+                        <FormItem label="项目名称" prop="project">
+                            <Select id="project" v-model="order.projectId" filterable @on-change="onProjectSelectChange">
+                                <Option v-for="item in projects" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
+                            </Select>
                         </FormItem>
                         </Col>
-                        <Col span="6">
-                        <FormItem prop="duration">
-                            <Input>
-                            <span slot="prepend">
-                                <Icon type="clock" style="font-size: 16px;"></Icon>
-                            </span>
-                            <Select slot="append" style="width: 70px">
-                                <Option value="minute">分钟</Option>
-                                <Option value="hour">小时</Option>
-                                <Option value="day">天</Option>
+                        <Col span="12">
+                        <FormItem label="产品名称" prop="product">
+                            <Select id="product" v-model="order.productId" placeholder="请选择项目对应的产品" filterable>
+                                <Option v-for="item in products" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
                             </Select>
-                            </Input>
                         </FormItem>
                         </Col>
                     </Row>
-                </FormItem>
-                <FormItem label="工单内容" prop="content">
-                    <Input type="textarea" :rows="10"></Input>
-                </FormItem>
-                <FormItem label="工单标签" prop="tags">
-                    <Tag v-for="item in 5" :key="item" :name="item" closable>标签{{ item + 1 }}</Tag>
-                    <Button icon="ios-plus-empty" type="dashed" size="small">添加标签</Button>
-                </FormItem>
-                <FormItem style="text-align:right;">
-                    <Button type="primary">提交</Button>
-                    <Button type="ghost" style="margin-left: 8px">取消</Button>
-                </FormItem>
-            </Form>
-        </Card>
+                    <Row>
+                        <Col span="12">
+                        <FormItem label="工单类型" prop="orderType">
+                            <Select id="orderType" v-model="order.type" placeholder="请选择工单类型">
+                                <Option v-for="item in orderTypes" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
+                            </Select>
+                        </FormItem>
+                        </Col>
+                        <Col span="12">
+                        <FormItem label="事件日期" prop="eventDate">
+                            <DatePicker type="date" placeholder="请选择事件发生日期" style="display: block"></DatePicker>
+                        </FormItem>
+                        </Col>
+                    </Row>
+                    <FormItem label="工单标题" prop="title">
+                        <Row>
+                            <Col span="18">
+                            <FormItem prop="title">
+                                <Input id="title" v-model="order.title" placeholder="请对问题进行简短的描述"></Input>
+                            </FormItem>
+                            </Col>
+                            <Col span="6">
+                            <FormItem prop="duration">
+                                <Input>
+                                <span slot="prepend">
+                                    <Icon type="clock" style="font-size: 16px;"></Icon>
+                                </span>
+                                <Select slot="append" style="width: 70px">
+                                    <Option value="minute">分钟</Option>
+                                    <Option value="hour">小时</Option>
+                                    <Option value="day">天</Option>
+                                </Select>
+                                </Input>
+                            </FormItem>
+                            </Col>
+                        </Row>
+                    </FormItem>
+                    <FormItem label="工单内容" prop="content">
+                        <Input type="textarea" :rows="10"></Input>
+                    </FormItem>
+                    <FormItem label="工单标签" prop="tags">
+                        <Tag v-for="item in 5" :key="item" :name="item" closable>标签{{ item + 1 }}</Tag>
+                        <Button icon="ios-plus-empty" type="dashed" size="small">添加标签</Button>
+                    </FormItem>
+                    <FormItem style="text-align:right;">
+                        <Button type="primary">提交</Button>
+                        <Button type="ghost" style="margin-left: 8px">取消</Button>
+                    </FormItem>
+                </Form>
+            </Card>
         </Col>
         <Col :xs="24" :sm="24" :md="6">
-        <Card>
-            <p slot="title">
-                <Icon type="document-text"></Icon>
-                工单信息
-            </p>
-            <Form>
-                <FormItem label="工单状态">
-                    <i-switch id="state" size="large" :value="order.state">
-                        <span slot="open">开启</span>
-                        <span slot="close">关闭</span>
-                    </i-switch>
-                </FormItem>
-                <FormItem label="发起人">
-                    <AutoComplete id="promoter" v-model="order.promoter" @on-search="handleUserSearch" placeholder="请输入工单发起人">
-                        <Option v-for="item in users" :value="item" :key="item">{{ item }}</Option>
-                    </AutoComplete>
-                </FormItem>
-                <FormItem label="处理人">
-                    <Input id="handler" type="text" placeholder="请输入工单处理人" :value="order.handler"></Input>
-                </FormItem>
-                <FormItem label="通知列表">
-                    <Input id="notifiers" type="text" placeholder="请输入需要接收通知的人员"></Input>
-                </FormItem>
-            </Form>
-        </Card>
+            <Card>
+                <p slot="title">
+                    <Icon type="document-text"></Icon>
+                    工单信息
+                </p>
+                <Form>
+                    <FormItem label="工单状态">
+                        <i-switch id="state" size="large" :value="order.state">
+                            <span slot="open">开启</span>
+                            <span slot="close">关闭</span>
+                        </i-switch>
+                    </FormItem>
+                    <FormItem label="发起人">
+                        <Select
+                            v-model="order.promoter"
+                            filterable
+                            remote
+                            :remote-method="handleUserSearch"
+                            :loading="loading">
+                            <Option v-for="(option, index) in users" :value="option.userName" :key="option.userName">{{option.name}}</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem label="处理人">
+                        <Select
+                            v-model="order.handler"
+                            filterable
+                            remote
+                            :remote-method="handleUserSearch"
+                            :loading="loading">
+                            <Option v-for="(option, index) in users" :value="option.userName" :key="option.userName">{{option.name}}</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem label="通知列表">
+                        <Select
+                            v-model="order.notifiers"
+                            filterable
+                            multiple
+                            remote
+                            :remote-method="handleUserSearch"
+                            :loading="loading">
+                            <Option v-for="(option, index) in users" :value="option.userName" :key="option.userName">{{option.name}}</Option>
+                        </Select>
+                    </FormItem>
+                </Form>
+            </Card>
+            <Card>
+                <p slot="title">
+                    <Icon type="document-text"></Icon>
+                    调试信息                    
+                </p>
+                <div>
+                    {{order}}
+                </div>
+            </Card>            
         </Col>
     </Row>
 </template>
@@ -145,6 +174,7 @@
                         trigger: 'blur'
                     }]
                 },
+                loading: false,
                 projects: [],
                 products: [],
                 users: [],
@@ -189,7 +219,9 @@
             },
             handleUserSearch: function (value) {
 
-                if(value === '') {
+                this.users = [];
+
+                if(value === '') {                    
                     return;
                 }
 
@@ -198,14 +230,21 @@
                     cancelHandle = null;
                 }
 
+                let __this = this;
                 cancelHandle = setTimeout(() => {
+                    this.loading = true;
                     let userSrv = new UserService();
-                    userSrv.getUser(value, null, true)
-                        .then(ret => {
-                            this.users = [ret.data.name];
-                        });
-                    cancelHandle = null;
-                    console.log(value);
+                    userSrv.queryUsers({
+                        'userName': value,
+                        'email': value,
+                        'name': value
+                    })
+                    .then(ret => {
+                        if(ret) {
+                            __this.users = ret.data;
+                            __this.loading = false;
+                        }
+                    });
                 }, 500);
             },
             // save() {

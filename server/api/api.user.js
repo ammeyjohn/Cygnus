@@ -27,32 +27,58 @@ router.post('/', (req, res) => {
 
 });
 
+// Send a request to get users by id string seperated by comma.
+// router.get('/:idstr', (req, res) => {
+//     res.status(500);
+// });
+
 // Send a request to get a user object.
 router.get('/', (req, res) => {
     let promise = null;
-
-    // let userId = req.params.id;
-    // if (userId) {
-    //     userId = parseInt(userId);
-    //     promise = service.getUserById(userId);
-    // }
 
     let fuzzy = false;
     if (req.query.mode === 'fuzzy') {
         fuzzy = true;
     }
 
-    let name = req.query.name;
-    let userName = req.query.username;
-    let mail = req.query.mail;
+    let condition = {
+        name: req.query.name,
+        userName: req.query.username,
+        email: req.query.email
+    }
 
     let service = new UserService();
-    return service.getUser(name, userName, mail, fuzzy)
+    return service.getUser(condition, fuzzy)
         .then(ret => {
             res.json({
                 code: 0,
                 data: ret
             });
+        })
+        .fail(err => {
+            res.status(500).send('GET /user/ error');
+        });
+});
+
+// Send a request to query users.
+router.get('/query', (req, res) => {
+    let promise = null;
+
+    let condition = {
+        name: req.query.name,
+        userName: req.query.username,
+        email: req.query.email
+    }
+
+    let service = new UserService();
+    return service.queryUser(condition, true)
+        .then(ret => {
+            res.json({
+                code: 0,
+                data: ret
+            });
+        }).fail(err => {
+            res.status(500).send('GET /user/query error');
         });
 });
 

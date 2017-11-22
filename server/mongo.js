@@ -6,14 +6,14 @@ const log = require('winston');
 const url = require('./settings.js').db.addr;
 
 const CODE_DB_CONNECT_ERROR = -1;
-const MSG__DB_CONNECT_ERROR = 'Failed to connect to server $s';
-const MSG__DB_CONNECT_EX = 'Exception occured when connect to server $s';
-const MSG__DB_CONNECT_SUCCESS = 'Connected to server $s';
+const MSG__DB_CONNECT_ERROR = 'Failed to connect to server %s';
+const MSG__DB_CONNECT_EX = 'Exception occured when connect to server %s';
+const MSG__DB_CONNECT_SUCCESS = 'Connected to server %s';
 
 const CODE_DB_EXECUTE_ERROR = -2;
-const MSG__DB_EXECUTE_ERROR = 'Failed to execute %s operation on server $s, collection %s';
-const MSG__DB_EXECUTE_EX = 'Exception occured when execute %s on server $s, collection %s';
-const MSG__DB_EXECUTE_SUCCESS = 'Execute %s operation on server $s, collection %s';
+const MSG__DB_EXECUTE_ERROR = 'Failed to execute %s operation on server %s, collection %s';
+const MSG__DB_EXECUTE_EX = 'Exception occured when execute %s on server %s, collection %s';
+const MSG__DB_EXECUTE_SUCCESS = 'Execute %s operation on server %s, collection %s';
 
 const onError = function(code, msg, err, params, defered) {
     let ex = {
