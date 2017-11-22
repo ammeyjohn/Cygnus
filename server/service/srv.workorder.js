@@ -10,6 +10,7 @@ module.exports = class WorkorderService {
         if (!order) {
             throw new Error('Null argument "order"');
         }
+        order.createTime = new Date();
 
         let repo = new WORepo();
         return repo.addOrder(order);

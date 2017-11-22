@@ -51,11 +51,13 @@ var prjApi = require('./server/api/api.project');
 var prodApi = require('./server/api/api.product');
 var userApi = require('./server/api/api.user');
 var wordApi = require('./server/api/api.word');
+var woApi = require('./server/api/api.workorder');
 app.use('/cygnus/api/auth', authApi);
 app.use('/cygnus/api/project', prjApi);
 app.use('/cygnus/api/product', prodApi);
 app.use('/cygnus/api/user', userApi);
 app.use('/cygnus/api/word', wordApi);
+app.use('/cygnus/api/workorder', woApi);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', function(req, res) {

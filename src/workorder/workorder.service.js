@@ -1,15 +1,12 @@
-'use strict';
-
 import axios from 'axios';
 
-let woService = {};
+export default class {
 
-woService.create = function (workorder) {
-    return axios.post('/wo', {
-        item: workorder
-    });
-}
-
-export default {
+    // Create a new work order object.
+    createOrder(order) {
+        return axios.post('/workorder', {
+            order: order
+        });
+    }
 
 };

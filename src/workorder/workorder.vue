@@ -7,7 +7,7 @@
                     <Row>
                         <Col span="12">
                         <FormItem label="项目名称" prop="project">
-                            <Select id="project" v-model="order.projectId" filterable @on-change="onProjectSelectChange">
+                            <Select id="project" v-model="order.projectId" clearable filterable @on-change="onProjectSelectChange">
                                 <Option v-for="item in projects" :value="item.id" :key="item.code">{{ item.code + ' ' + item.name }}</Option>
                             </Select>
                         </FormItem>
@@ -54,7 +54,7 @@
                         </Row>
                     </FormItem>
                     <FormItem label="工单内容" prop="content">
-                        <Input type="textarea" :rows="10"></Input>
+                        <Input type="textarea" v-model="order.content" :rows="10"></Input>
                     </FormItem>
                     <FormItem style="text-align:right;">
                         <Button type="primary" @click="save()">提交</Button>
@@ -124,11 +124,12 @@
 
 <script>
     import _ from 'lodash';
+    import AuthService from '../service/authorizeService';
     import ProjectService from '../project/project.service';
     import prodSrv from '../product/product.service';
     import UserService from '../user/user.service';
     import WordService from '../service/word.service';
-    import woSrv from './workorder.service';
+    import WOService from './workorder.service';
 
     let cancelHandle = null;
 
@@ -162,7 +163,7 @@
                     state: true,                    
                     tags: [],
                     createUser: 1,
-                    createTime: null
+                    createTime: new Date()
                 }
             }
         },
@@ -182,9 +183,33 @@
                 .then(function(word){
                     __this.orderTypes = word.items;
                     __this.order.type = word.items[0].code;
-                });                        
+                });
+            
+            // Initialize order object
+            this.initOrder();
         },
         methods: {
+            initOrder() {
+                this.order = {
+                    projectId: null,
+                    productId: null,
+                    title: null,
+                    content: null,
+                    type: '',
+                    orderDate: new Date(),
+                    duration: 0,
+                    promoter: null,
+                    handler: null,
+                    notifiers: [],
+                    state: true,                    
+                    tags: [],
+                    createUser: 1,
+                    createTime: new Date()
+                };
+                let credential = AuthService.getCredential(); 
+                this.order.createUser = credential.user.userName;
+            },
+
             onProjectSelectChange(selected) {
                 if (selected !== '') {
                     let prj = _.find(this.projects, {
@@ -198,11 +223,11 @@
                         });
                 }
             },
-            handleUserSearch: function (value) {
+            handleUserSearch(value) {
 
                 this.users = [];
 
-                if(value === '') {                    
+                if(!value || value === '') {                    
                     return;
                 }
 
@@ -230,12 +255,16 @@
             },
             save() {
                 this.$refs.orderForm.validate((valid) => {
-                    
+                   if(valid) {
+                       let wosrv = new WOService();
+                       wosrv.createOrder(this.order)
+                            .then(ret => {
+                                this.$Message.success('创建工单成功');
+                                this.initOrder();
+                            });
+                   } 
                 });
-                // woSrv.create(this.order)
-                //     .then(function (ret) {
-                //         console.log(ret);
-                //     });
+
             }
         }
     }
