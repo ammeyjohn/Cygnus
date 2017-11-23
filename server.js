@@ -1,13 +1,15 @@
-var debug = require('debug')('cygnus:server');
-var path = require('path');
-var fs = require("fs");
-var express = require('express');
-var bodyParser = require('body-parser');
+const VERSION = 'v0.1.1';
+const debug = require('debug')('cygnus:server');
+const path = require('path');
+const fs = require("fs");
+const express = require('express');
+const bodyParser = require('body-parser');
 
 // Logger
 
-if (!fs.existsSync('logs')) {
-    fs.mkdirSync('logs');
+const logdir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logdir)) {
+    fs.mkdirSync(logdir);
 }
 
 const log = require('winston');
@@ -16,17 +18,17 @@ log.configure({
     transports: [
         new log.transports.Console(),
         new log.transports.File({
-            filename: 'logs/log.log'
+            filename: path.join(logdir, 'log.log')
         })
     ],
     exceptionHandlers: [
         new log.transports.File({
-            filename: 'logs/exceptions.log'
+            filename: path.join(logdir, 'exceptions.log')
         })
     ]
 });
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.raw());
 app.use(bodyParser.json());
@@ -46,12 +48,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-var authApi = require('./server/api/api.authorize');
-var prjApi = require('./server/api/api.project');
-var prodApi = require('./server/api/api.product');
-var userApi = require('./server/api/api.user');
-var wordApi = require('./server/api/api.word');
-var woApi = require('./server/api/api.workorder');
+const authApi = require('./server/api/api.authorize');
+const prjApi = require('./server/api/api.project');
+const prodApi = require('./server/api/api.product');
+const userApi = require('./server/api/api.user');
+const wordApi = require('./server/api/api.word');
+const woApi = require('./server/api/api.workorder');
 app.use('/cygnus/api/auth', authApi);
 app.use('/cygnus/api/project', prjApi);
 app.use('/cygnus/api/product', prodApi);
@@ -65,9 +67,9 @@ app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './dist/index.html')); // load the single view file (angular will handle the page changes on the front-end)
 });
 
-var server = app.listen(8051, function() {
-    var host = server.address().address
-    var port = server.address().port
+const server = app.listen(8051, function() {
+    const host = server.address().address
+    const port = server.address().port
 
     log.info("Server listening at http://%s:%s", host, port);
 });
