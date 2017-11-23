@@ -109,10 +109,10 @@
                     </FormItem>
                 </Form>
             </Card>
-            <Card>
+            <Card v-if="false">
                 <p slot="title">
                     <Icon type="document-text"></Icon>
-                    调试信息                    
+                    调试信息
                 </p>
                 <div>
                     {{order}}

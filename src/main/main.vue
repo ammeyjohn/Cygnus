@@ -6,7 +6,7 @@
     <div id="main" class="main">
         <div class="sidebar-menu">
             <div class="logo">
-                <img src="../assets/images/logo/logo.jpg">
+                <img src="../assets/images/logo/logo.png">
             </div>
             <sidebar-menu></sidebar-menu>
         </div>
