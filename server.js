@@ -44,8 +44,8 @@ mongoose.connect(settings.mongo.addr, {
     useMongoClient: true
 });
 mongoose.set('debug', function(coll, method, query, docs) {
-    let msg = util.format('Execute query "%s" on collection "%s" by method "%s"',
-        JSON.stringify(query), coll, method);
+    let msg = util.format('Execute %s "%s" on collection "%s"',
+        method, JSON.stringify(query), coll);
     log.debug(msg);
 });
 
@@ -78,8 +78,8 @@ app.use(function(req, res, next) {
 app.use('/cygnus/api/auth', require('./server/api/api.authorize'));
 app.use('/cygnus/api/project', require('./server/api/api.project'));
 app.use('/cygnus/api/product', require('./server/api/api.product'));
-app.use('/cygnus/api/user', require('./server/api/api.user'));
-app.use('/cygnus/api/word', require('./server/api/api.word'));
+app.use('/cygnus/api/users', require('./server/api/api.user'));
+app.use('/cygnus/api/words', require('./server/api/api.word'));
 app.use('/cygnus/api/workorder', require('./server/api/api.workorder'));
 
 // Handle static resource requests.
