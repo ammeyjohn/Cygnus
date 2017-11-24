@@ -1,15 +1,13 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
 
 // Plugins
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const prod = process.env.NODE_ENV === 'production' ? true : false;
+const CSS_LOADER = 'css-loader' + (prod ? '?minimize' : '');
 
 module.exports = {
     entry: {
@@ -17,10 +15,8 @@ module.exports = {
         vendor: './src/vendor.js'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
-        filename: 'js/[name].js',
-        chunkFilename: 'js/[name].chunk.js'
+        path: path.resolve('./dist'),
+        publicPath: '/'
     },
     module: {
         rules: [{
@@ -29,11 +25,11 @@ module.exports = {
             options: {
                 loaders: {
                     scss: ExtractTextPlugin.extract({
-                        use: ['css-loader', 'sass-loader'],
+                        use: [CSS_LOADER, 'sass-loader'],
                         fallback: 'vue-style-loader'
                     }),
                     css: ExtractTextPlugin.extract({
-                        use: ['css-loader'],
+                        use: [CSS_LOADER],
                         fallback: 'vue-style-loader'
                     })
                 }
@@ -45,8 +41,7 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                // use: ['css-loader?minimize'],
-                use: ['css-loader'],
+                use: [CSS_LOADER],
                 fallback: 'style-loader'
             })
         }, {
@@ -79,28 +74,20 @@ module.exports = {
         }]
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
-        // new webpack.DefinePlugin({
-        //     'process.env.NODE_ENV': 'development'
-        // }),
-        // new CleanWebpackPlugin(['dist'], {
-        //     root: __dirname,
-        //     verbose: true
-        // }),
-        // new CopyWebpackPlugin([{
-        //     from: './src/assets',
-        //     to: 'assets'
-        // }]),
         new ExtractTextPlugin({
-            filename: 'css/[name].css',
+            filename: 'css/[name]' + (prod ? '.[contenthash]' : '') + '.css',
             allChunks: true
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'index.html'
+            template: 'index.html',
+            minify: {
+                removeComments: prod,
+                collapseWhitespace: prod
+            }
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor', 'runtime'],
+            name: ['main', 'vendor', 'runtime'],
             minChunks: Infinity
         }),
         new webpack.optimize.CommonsChunkPlugin({
@@ -119,11 +106,5 @@ module.exports = {
             'vue': 'vue/dist/vue.common',
             'jquery': 'jquery'
         }
-    },
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),
-        inline: true,
-        historyApiFallback: true
     }
 }

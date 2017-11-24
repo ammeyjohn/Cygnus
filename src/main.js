@@ -6,17 +6,16 @@ import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import axios from 'axios';
 
+Vue.use(VueRouter);
+Vue.use(Vuex);
+
 // iView
 import iView from 'iview';
-import 'iview/dist/styles/iview.css';
+Vue.use(iView);
 
 // Entry
 import App from './app/app.vue';
 import Main from './main/main.vue';
-
-Vue.use(VueRouter);
-Vue.use(Vuex);
-Vue.use(iView);
 
 const router = new VueRouter({
     routes: [{
