@@ -80,7 +80,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'index.html',
+            template: './web/index.html',
             minify: {
                 removeComments: prod,
                 collapseWhitespace: prod
