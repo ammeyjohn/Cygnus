@@ -11,8 +11,8 @@ const CSS_LOADER = 'css-loader' + (prod ? '?minimize' : '');
 
 module.exports = {
     entry: {
-        main: './src/main.js',
-        vendor: './src/vendor.js'
+        main: './web/main.js',
+        vendor: './web/vendor.js'
     },
     output: {
         path: path.resolve('./dist'),
@@ -37,7 +37,7 @@ module.exports = {
         }, {
             test: /\.js$/,
             loader: 'babel-loader',
-            include: [path.resolve(__dirname, 'src')]
+            include: [path.resolve(__dirname, 'web')]
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
