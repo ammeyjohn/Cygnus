@@ -124,11 +124,11 @@
 
 <script>
     import _ from 'lodash';
-    import AuthService from '../service/authorizeService';
+    import AuthService from '../../services/authorizeService';
     import ProjectService from '../project/project.service';
     import prodSrv from '../product/product.service';
     import UserService from '../user/user.service';
-    import WordService from '../service/word.service';
+    import WordService from '../../services/word.service';
     import WOService from './workorder.service';
 
     let cancelHandle = null;

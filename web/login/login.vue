@@ -39,15 +39,15 @@
 
 <script>
 import Cookies from 'js-cookie';
-import AuthSrv from '../service/authorizeService';
+import AuthSrv from '../services/authorizeService';
 
 export default {
     data () {
         return {
             login_success: true,
             form: {
-                userName: 'yuanjie',
-                password: '1234567890'
+                userName: '',
+                password: ''
             },
             rules: {
                 userName: [

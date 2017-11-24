@@ -39,14 +39,14 @@ const router = new VueRouter({
             path: 'workorder',
             name: 'workorder',
             component: resolve => {
-                require(['./workorder/workorder.vue'], resolve);
+                require(['./views/workorder/workorder.vue'], resolve);
             }
         }, {
             title: '示例',
             path: '/demo',
             name: 'demo',
             component: resolve => {
-                require(['./demo/demo.vue'], resolve);
+                require(['./views/demo/demo.vue'], resolve);
             }
         }]
     }]

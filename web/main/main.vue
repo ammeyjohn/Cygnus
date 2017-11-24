@@ -41,7 +41,7 @@
 
 <script>
     import sidebarMenu from './sidebarMenu.vue';
-    import AuthSrv from '../service/authorizeService';
+    import AuthSrv from '../services/authorizeService';
 
     export default {
         components: {
