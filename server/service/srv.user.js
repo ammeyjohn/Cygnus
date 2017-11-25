@@ -13,15 +13,11 @@ module.exports = class UserService {
         if (!userId) {
             throw new Error('Null argument "userId"');
         }
-        return this.repo.getUserById(userId);
+        return this.repo.selectById(userId);
     }
 
-    getUser(condition) {
-        return this.repo.getUserByCondition(condition);
-    }
-
-    queryUser(condition) {
-        return this.repo.queryUsersByCondition(condition);
+    getUsers(condition, params) {
+        return this.repo.select(condition, params);
     }
 
     addUser(user) {
@@ -29,24 +25,6 @@ module.exports = class UserService {
             throw new Error('Null argument "user"');
         }
 
-        return this.repo.addUser(user);
+        return this.repo.add(user);
     }
-
-    // // Get a user instance by given user id.
-    // getUserById(userId) {
-    //     if (!userId) {
-    //         throw new Error('Null argument "userId"');
-    //     }
-
-    //     let repo = new UserRepo();
-    //     return repo.get(userId);
-    // }
-
-
-
-    // // Query users by given condition.
-    // queryUser(condition, fuzzy) {
-    //     let repo = new UserRepo();
-    //     return repo.query(condition, fuzzy);
-    // }
 }

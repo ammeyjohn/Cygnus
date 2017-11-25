@@ -1,74 +1,102 @@
+const log = require('winston');
 const User = require('../model/user');
 
 module.exports = class UserRepo {
 
-    getUserById(id) {
-        return User.findOne({ id: id }).lean();
+    selectById(id) {
+        return User.findOne({
+                id: id
+            })
+            .lean()
+            .fail(err => {
+                log.error(err);
+                return {
+                    code: -10,
+                    message: 'Execute query error',
+                    error: err,
+                    param: arguments
+                }
+            })
+            .catch(ex => {
+                log.exception(ex);
+                throw ex;
+            });
     }
 
-    getUserByCondition(condition) {
-        return User.findOne(condition).lean();
+    select(conds, params) {
+        let condition = {};
+        if (conds) {
+            if (conds.id && conds.id.length > 0) {
+                condition['id'] = {
+                    '$in': conds.id
+                };
+            }
+            if (params.fuzzy) {
+                let or = [];
+                if (conds.userName)
+                    or.push(new RegExp(conds.userName));
+                if (conds.name)
+                    or.push(new RegExp(conds.name));
+                if (conds.email)
+                    or.push(new RegExp(conds.email));
+                condition['$or'] = or;
+            } else {
+                condition = conds;
+            }
+        }
+
+        let sort = {};
+        params.asc.forEach(f => {
+            sort[f] = 1
+        });
+        params.desc.forEach(f => {
+            sort[f] = -1
+        });
+
+        let query = User.find(condition);
+        if (params.offset > 0)
+            query = query.skip(params.offset);
+        if (Number.isFinite(params.limit))
+            query = query.limit(params.limit)
+        return query
+            .sort(sort)
+            .lean()
+            .then(docs => {
+                if (params.limit === 1) {
+                    if (docs && docs.length > 0)
+                        return docs[0];
+                }
+                return docs;
+            }, err => {
+                log.error(err);
+                return {
+                    code: -10,
+                    message: 'Execute query error',
+                    error: err,
+                    param: arguments
+                }
+            })
+            .catch(ex => {
+                log.exception(ex);
+                throw ex;
+            })
     }
 
-    queryUsersByCondition(condition, fuzzy = true) {
-        let or = [];
-        if (condition.userName)
-            or.push(new RegExp(condition.userName));
-        if (condition.name)
-            or.push(new RegExp(condition.name));
-        if (condition.email)
-            or.push(new RegExp(condition.email));
-
-        return User.find({
-            '$or': or
-        }).then(docs => {
-
-        }, err => {});
-    }
-
-    addUser(data) {
-        return User(data).save()
+    insert(user) {
+        return User(user)
+            .save()
+            .fail(err => {
+                log.error(err);
+                return {
+                    code: -10,
+                    message: 'Execute insert error',
+                    error: err,
+                    param: arguments
+                }
+            })
+            .catch(ex => {
+                log.exception(ex);
+                throw ex;
+            });
     }
 }
-
-
-
-// Generate a condition object from given parameters.
-// const getCondition = function(params, fuzzy, or) {
-//     let cond = {};
-//     if (params.name) cond['name'] = fuzzy ? new RegExp(params.name) : params.name;
-//     if (params.userName) cond['userName'] = fuzzy ? new RegExp(params.userName) : params.userName;
-//     if (params.email) cond['email'] = fuzzy ? new RegExp(params.email) : params.email;
-//     if (or) {
-//         let orCond = [];
-//         for (let name in cond)
-//             orCond.push(_.pick(cond, name));
-//         return { '$or': orCond };
-//     }
-//     return cond;
-// }
-
-// module.exports = class UserRepo {
-
-//     // Get a specified user by given condition.
-//     // Null argument will be ignored.
-//     get(condition, fuzzy = false) {
-//         let cond = getCondition(condition, fuzzy, false);
-//         let mongo = new Mongo();
-//         return mongo.query(COLLECTION, cond)
-//             .then(ret => {
-//                 if (ret && ret.length >= 1) {
-//                     return ret[0];
-//                 }
-//                 return null;
-//             });
-//     }
-
-//     // Query users by given condition.
-//     query(condition, fuzzy = true) {
-//         let cond = getCondition(condition, fuzzy, true);
-//         let mongo = new Mongo();
-//         return mongo.query(COLLECTION, cond);
-//     }
-
-// }
